@@ -6,16 +6,16 @@
     width:100%;
     /*z-index: -1;*/
     display: block;
-    .mint-cell{
-      background: #f5f5f5;
-      color: #999;
-    }
-    .list{
-      color: #333;
-    }
-    .delallhis{
-      padding:10px;
-     }
+  .mint-cell{
+    background: #f5f5f5;
+    color: #999;
+  }
+  .list{
+    color: #333;
+  }
+  .delallhis{
+    padding:10px;
+  }
   }
 
 </style>
@@ -23,9 +23,11 @@
   <div class="page-search">
     <div class="header-search">
       <mt-search v-model="value">
-        <my-carlist>browser-sync start --server --files "**/*.css, **/*.html"
-
-        </my-carlist>
+        <myCarKindlist v-for="item in result">
+          <span slot="title">{{item.title}}</span>
+          <span slot="carPrize">{{item.carPrize}}</span>
+          <label class="tag-warm" slot="label" v-for="lab in item.labels">{{lab}}</label>
+        </myCarKindlist>
       </mt-search>
     </div>
     <div class="ever-search">
@@ -43,6 +45,7 @@
 
 <script>
   import listCarKind from '../../components/carKindList.vue'
+  import myCarKindlist from '../../components/carKindList.vue'
   export default{
     name:'page-search',
     methods: {
@@ -53,39 +56,31 @@
     computed: {
       filterResult() {
         return this.defaultResult.filter(value => new RegExp(this.value, 'i').test(value));
-      }
+      },
+     // lables(){
+//        const string = "aaa,bbb,cc,ded,fff,ggg";   //原始数据
+//        const array = string.split(",");           //转化为数组
+//        const value = array[Math.round(Math.random()*(array.length-1))];  //随机抽取一个值const
+//        return
+     // }
+    },
+    components:{
+      myCarKindlist
     },
     data(){
       return{
         value:'',
         result:[
           {
-            title:'hanlanda',
-            value:'75w'
+            src:'http://121.40.78.200/pic/shop/article/98769753226215688556746.jpg',
+            title:'穿越者2016超级SUV穿越者2016超级SUV',
+            carPrize:'35',
+            labels:['耐力好','很强','适合车震','泡女神器']
           },{
-            title:'宝马',
-            value:'75w'
-          },{
-            title:'悍马',
-            value:'75w'
-          },{
-            title:'保时捷',
-            value:'75w'
-          },{
-            title:'玛莎拉蒂',
-            value:'75w'
-          },{
-            title:'路虎',
-            value:'75w'
-          },{
-            title:'法拉利',
-            value:'75w'
-          },{
-            title:'雪铁龙',
-            value:'75w'
-          },{
-            title:'奥迪a9',
-            value:'75w'
+            labels:['逼格高','很强','适合车震','耐操'],
+            src:'http://121.40.78.200/pic/shop/article/98769753226215688556746.jpg',
+            title:'悍马豪华尊贵版越野型suv',
+            carPrize:'37'
           }
         ],
         historySearch:[
