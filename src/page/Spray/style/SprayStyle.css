@@ -1,0 +1,562 @@
+@charset "UTF-8";
+/*================================================
+
+选中颜色：fb4700
+边：ccc
+块背景：ddd
+================================================*/
+.carViewDetail {
+  background: #fff;
+  overflow: hidden;
+  width: 100%; }
+
+/*汽车信息*/
+.carMsg {
+  background: #fff;
+  border-bottom: 1px solid #ccc; }
+  .carMsg .header {
+    font-size: 14px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 1; }
+    .carMsg .header .left {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1; }
+    .carMsg .header .mid {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold; }
+    .carMsg .header .right {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1; }
+
+/*汽车零件*/
+.carView {
+  width: 100%;
+  min-height: 10.869565rem;
+  background: #fff; }
+
+.painAll {
+  text-align: center; }
+
+.painAll small {
+  display: inline-block;
+  background: #fb4700;
+  color: #fff;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 50%;
+  padding: 0.120773rem;
+  margin: 0 0.120773rem; }
+
+.carView img.defaultBg {
+  width: 8.695652rem;
+  display: block;
+  margin: auto; }
+
+.normalsize {
+  width: 100%;
+  position: relative;
+  min-height: 9.661836rem;
+  background: url(../../assets/images/Spray/defaultBg1.png) no-repeat top -0.07246rem center;
+  -webkit-background-size: 8.695652rem;
+  background-size: 8.695652rem; }
+
+.normalsize img {
+  position: absolute;
+  display: none; }
+
+.normalsize .block1 {
+  left: 7.5717rem;
+  top: 6.601739rem;
+  width: 1.05266rem;
+  height: 2.463768rem; }
+
+.normalsize .block2 {
+  left: 8.695652rem;
+  top: 3.099324rem;
+  width: 0.428164rem;
+  height: 3.603961rem; }
+
+.normalsize .block3 {
+  left: 7.56923rem;
+  top: 5.31401rem;
+  height: 1.829903rem;
+  width: 1.045rem; }
+
+.normalsize .block4 {
+  left: 7.577246rem;
+  top: 3.264251rem;
+  height: 2.05314rem;
+  width: 1.04005rem; }
+
+.normalsize .block5 {
+  left: 6.529275rem;
+  top: 2.953623rem;
+  width: 0.975957rem;
+  height: 2.439614rem; }
+
+.normalsize .block6 {
+  left: 6.499275rem;
+  top: 5.426473rem;
+  width: 1.014493rem;
+  height: 2.657005rem; }
+
+.normalsize .block7 {
+  left: 6.758957rem;
+  top: 5.249855rem;
+  width: 0.755411rem; }
+
+.normalsize .block8 {
+  left: 7.6186rem;
+  top: 1.15942rem;
+  width: 1.208502rem;
+  height: 2.07314rem; }
+
+.normalsize .block9 {
+  top: 6.601739rem;
+  left: 1.352657rem;
+  width: 1.100266rem; }
+
+.normalsize .block10 {
+  top: 3.100324rem;
+  left: 0.916184rem;
+  width: 0.408164rem;
+  height: 3.583961rem; }
+
+.normalsize .block11 {
+  top: 5.31401rem;
+  left: 1.376812rem;
+  width: 1.075266rem;
+  height: 1.835749rem; }
+
+.normalsize .block12 {
+  top: 3.264251rem;
+  left: 1.376812rem;
+  width: 1.075266rem;
+  height: 2.05314rem; }
+
+.normalsize .block13 {
+  top: 2.96469rem;
+  left: 2.569768rem;
+  width: 0.936957rem; }
+
+.normalsize .block14 {
+  top: 5.458937rem;
+  left: 2.500386rem;
+  width: 0.970338rem;
+  height: 2.536232rem; }
+
+.normalsize .block15 {
+  top: 5.249855rem;
+  left: 2.52386rem;
+  width: 0.725256rem; }
+
+.normalsize .block16 {
+  top: 1.15942rem;
+  left: 1.205266rem;
+  width: 1.17502rem;
+  height: 2.07314rem; }
+
+/*轮胎*/
+/*左*/
+.normalsize .block17 {
+  top: 1.84913rem;
+  left: 0.997101rem;
+  width: 0.890338rem; }
+
+.normalsize .block18 {
+  top: 7.05676rem;
+  left: 1.0021rem;
+  width: 0.890338rem; }
+
+/*右*/
+.normalsize .block19 {
+  top: 1.84713rem;
+  left: 8.14256rem;
+  width: 0.910338rem; }
+
+.normalsize .block20 {
+  top: 7.030676rem;
+  left: 8.14256rem;
+  width: 0.90338rem; }
+
+/*轮胎 end*/
+.normalsize .block21 {
+  top: 0.458937rem;
+  left: 3.68257rem;
+  width: 2.62541rem; }
+
+.normalsize .block22 {
+  top: 0.966184rem;
+  left: 3.675652rem;
+  height: 2.101449rem;
+  width: 2.648696rem; }
+
+.normalsize .block23 {
+  top: 4.284589rem;
+  left: 4.013816rem;
+  width: 1.998599rem;
+  height: 2.826087rem; }
+
+.normalsize .block24 {
+  top: 8.029rem;
+  left: 3.917198rem;
+  width: 2.262222rem; }
+
+.normalsize .block25 {
+  top: 8.868357rem;
+  left: 3.897198rem;
+  width: 2.298068rem; }
+
+.normalsize .block26 {
+  top: 1.52043rem;
+  left: 6.348502rem;
+  width: 0.942029rem; }
+
+.normalsize .block27 {
+  top: 1.51343rem;
+  left: 2.703623rem;
+  width: 0.942029rem; }
+
+/*4s店推荐*/
+.othershop {
+  display: none; }
+
+.othershop .shoptt {
+  background: #FCF6C1;
+  padding: 0.241546rem;
+  border-bottom: 1px solid #ddd; }
+
+.shoptt span {
+  border-left: #21AB21 5px solid;
+  padding-left: 0.24155rem; }
+
+.shopList {
+  overflow-x: scroll; }
+
+.shopBlock {
+  padding: 0.241546rem;
+  border-right: 1px solid #ccc;
+  float: left;
+  display: block; }
+
+.shopBlock.on {
+  background: #fff; }
+
+.shopic img {
+  width: 2.898551rem;
+  height: 2.173913rem; }
+
+.shopic i {
+  position: absolute;
+  width: 0.724638rem;
+  height: 0.724638rem;
+  background: url(../../assets/images/Spray/tick.png) no-repeat top;
+  -webkit-background-size: 100%;
+  margin-left: -0.724638rem;
+  background-size: 100%; }
+
+.shopBlock .shopMsg {
+  padding: 0.120773rem;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative; }
+
+.shopMsg p {
+  /*两行省略*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 0.386473rem;
+  font-weight: 600;
+  min-height: 2.5em;
+  color: #777; }
+
+.shopBlock .prize {
+  color: red;
+  font-size: 0.531401rem;
+  font-weight: 600; }
+
+.prize pre {
+  font-size: 0.289855rem;
+  display: inline-block; }
+
+.shopBlock .kms {
+  position: absolute;
+  right: 0.120773rem;
+  bottom: 0.120773rem;
+  font-size: 0.434783rem;
+  color: #777; }
+
+.shopBlock .kms i {
+  width: 0.338164rem;
+  height: 0.57971rem;
+  background: url(../../assets/images/Spray/location.png) no-repeat left top 0.14493rem;
+  vertical-align: baseline;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+  display: inline-block; }
+
+.advertise {
+  overflow: hidden;
+  position: relative; }
+
+.ads {
+  width: 10rem; }
+
+/*==========零件详情页面==========*/
+.carView.bigger, .carSideView1, .carSideView2, .carSideView3 {
+  min-height: 16.060483rem; }
+
+.carSideView1 {
+  width: 10rem;
+  margin: auto;
+  background: url(../../assets/images/Spray/carViewbg1-l.png) no-repeat top -0.07246rem center;
+  -webkit-background-size: 6.763285rem;
+  background-size: 6.763285rem; }
+
+.carSideView2 {
+  width: 10rem;
+  margin: auto;
+  background: url(../../assets/images/Spray/carViewbg-c.png) no-repeat top -0.07246rem center;
+  -webkit-background-size: 6.763285rem;
+  background-size: 6.763285rem; }
+
+.carSideView3 {
+  width: 10rem;
+  margin: auto;
+  background: url(../../assets/images/Spray/carViewbg1-r.png) no-repeat top -0.07246rem center;
+  -webkit-background-size: 6.763285rem;
+  background-size: 6.763285rem; }
+
+.biggerimg img {
+  position: absolute; }
+
+/*左边视图*/
+.biggerimg .block9 {
+  top: 10.72971rem;
+  left: 3.671498rem;
+  width: 1.725749rem; }
+
+.biggerimg .block10 {
+  top: 5.06rem;
+  left: 3.043478rem;
+  width: 0.531401rem;
+  height: 5.821256rem; }
+
+.biggerimg .block11 {
+  top: 8.599034rem;
+  left: 3.695652rem;
+  width: 1.735749rem; }
+
+.biggerimg .block12 {
+  top: 5.270773rem;
+  left: 3.671498rem;
+  width: 1.735749rem; }
+
+.biggerimg .block13 {
+  top: 4.792754rem;
+  left: 5.563092rem;
+  width: 1.514976rem; }
+
+.biggerimg .block14 {
+  top: 8.864734rem;
+  left: 5.46865rem;
+  width: 1.54203rem;
+  height: 4.10628rem; }
+
+.biggerimg .block15 {
+  top: 8.550725rem;
+  left: 5.488019rem;
+  width: 1.198502rem; }
+
+.biggerimg .block16 {
+  top: 1.964903rem;
+  left: 3.435024rem;
+  width: 1.839758rem; }
+
+.biggerimg .block17 {
+  top: 3.04rem;
+  left: 3.03rem;
+  width: 1.394203rem; }
+
+.biggerimg .block18 {
+  top: 11.446039rem;
+  left: 3.03rem;
+  width: 1.394203rem; }
+
+/*中间视图*/
+.biggerimg .block21 {
+  top: 0.652174rem;
+  left: 2.922705rem;
+  width: 4.154589rem; }
+
+.biggerimg .block22 {
+  top: 1.425121rem;
+  left: 2.850242rem;
+  width: 4.275362rem; }
+
+.biggerimg .block23 {
+  top: 6.642512rem;
+  left: 3.429952rem;
+  width: 3.188406rem; }
+
+.biggerimg .block24 {
+  top: 12.536232rem;
+  left: 3.236715rem;
+  width: 3.647343rem; }
+
+.biggerimg .block25 {
+  top: 13.888889rem;
+  left: 3.21256rem;
+  width: 3.623188rem; }
+
+.biggerimg .block26 {
+  top: 2.318841rem;
+  left: 7.173913rem;
+  width: 1.497585rem; }
+
+.biggerimg .block27 {
+  top: 2.391304rem;
+  left: 1.425121rem;
+  width: 1.425121rem; }
+
+/*右边视图*/
+.biggerimg .block1 {
+  left: 4.400671rem;
+  top: 10.67971rem;
+  width: 1.811594rem; }
+
+.biggerimg .block2 {
+  left: 6.260193rem;
+  top: 5.055072rem;
+  width: 0.746401rem; }
+
+.biggerimg .block3 {
+  left: 4.399517rem;
+  top: 8.599034rem;
+  width: 1.735749rem; }
+
+.biggerimg .block4 {
+  left: 4.399517rem;
+  top: 5.270773rem;
+  width: 1.735749rem; }
+
+.biggerimg .block5 {
+  left: 2.83285rem;
+  top: 4.80444rem;
+  width: 1.514976rem; }
+
+.biggerimg .block6 {
+  left: 2.83285rem;
+  top: 8.850034rem;
+  width: 1.494203rem;
+  height: 4.178744rem; }
+
+.biggerimg .block7 {
+  left: 3.099551rem;
+  top: 8.49957rem;
+  width: 1.24348rem; }
+
+.biggerimg .block8 {
+  left: 4.52029rem;
+  top: 1.959903rem;
+  width: 1.905604rem;
+  height: 3.309179rem; }
+
+.biggerimg .block19 {
+  left: 5.37246rem;
+  top: 3.007778rem;
+  width: 1.434203rem; }
+
+.biggerimg .block20 {
+  left: 5.37246rem;
+  width: 1.434203rem;
+  top: 11.416039rem; }
+
+/*全车翻新按钮*/
+.chk_3 {
+  display: none; }
+
+.chk_3 + label {
+  background-color: #fafbfa;
+  padding: 0.217391rem;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  margin-right: 30px;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  width: 0.724638rem;
+  height: 0.144928rem;
+  vertical-align: middle;
+  margin-left: 0.241546rem; }
+
+.chk_3 + label:after {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  -webkit-transition: box-shadow 0.1s ease-in;
+  transition: box-shadow 0.1s ease-in;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 2.415459rem;
+  box-shadow: inset 0 0 0 0 #eee, 0 0 1px rgba(0, 0, 0, 0.4); }
+
+.chk_3 + label:before {
+  content: ' ';
+  position: absolute;
+  background: white;
+  top: 1px;
+  left: 1px;
+  z-index: 999999;
+  width: 0.531401rem;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  height: 0.531401rem;
+  border-radius: 100px;
+  box-shadow: 0 3px 1px rgba(0, 0, 0, 0.05), 0 0px 1px rgba(0, 0, 0, 0.3); }
+
+.chk_3:active + label:after {
+  box-shadow: inset 0 0 0 20px #eee, 0 0 1px #eee; }
+
+.chk_3:active + label:before {
+  width: 37px; }
+
+.chk_3:checked:active + label:before {
+  width: 37px;
+  left: 20px; }
+
+.chk_3 + label:active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1); }
+
+.chk_3:checked + label:before {
+  content: ' ';
+  position: absolute;
+  left: 0.628019rem;
+  border-radius: 2.415459rem; }
+
+.chk_3:checked + label:after {
+  content: ' ';
+  font-size: 1.5em;
+  position: absolute;
+  background: #FB4700;
+  box-shadow: 0 0 1px #FB4700; }
+
+/*# sourceMappingURL=SprayStyle.css.map */

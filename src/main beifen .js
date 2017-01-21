@@ -1,7 +1,6 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 import MintUI from 'mint-ui'
-
+import VueRouter from 'vue-router'
 //css
 import 'mint-ui/lib/style.css'
 import 'assets/css/animate.min.css'
@@ -32,22 +31,24 @@ import maintainStore from './page/maintain/maintain-store.vue'
 import maintainTime from './page/maintain/maintain-time.vue'
 
 import testAjax from './page/testAjax.vue'
-import footbar from './components/footBar.vue'
 
-Vue.use(VueRouter);
+//import testRange from './components/range/index.vue'
+//import Router from './Router'
+// import App from './App.vue'
+
 Vue.use(MintUI);
-
+Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode:'history',
   base:__dirname,
   routes:[
-    //{path:'/',component:footbar},
+    //{path:'/',component:testAjax},
     {path:'/Spray',component:Spray},
 
-    {path:'/',component:CarLife,meta:{show:true}},
+    {path:'/',component:CarLife},
 
-    {path:'/ChooseCarIndex',component:ChooseCarIndex,meta:{show:true}},
+    {path:'/ChooseCarIndex',component:ChooseCarIndex},
     {path:'/ChooseCarSearch',component:ChooseCarSearch},
     {path:'/ChooseCarSearchResult',component:ChooseCarSearchResult},
 
@@ -63,23 +64,13 @@ const router = new VueRouter({
   ]
 });
 
-new Vue({
-  router,
-  data(){
-    return {
-      aaa:'fade1',
-      selected:2
-    }
-  },
-  components:{
-    footbar
-  },
-  template:`
-    <div>
-    <footbar v-show="$route.meta.show"></footbar>
-    <transition :name="aaa" mode="out-in">
-       <router-view ></router-view>
-    </transition>
-    </div>
-  `
-}).$mount('#app');
+  new Vue({
+    router,
+    el: '#app',
+    template:`
+      <div>
+          <router-view></router-view>
+      </div>
+    `
+
+});

@@ -1,5 +1,5 @@
 <style scoped lang="scss">
-  /*.page-navbar{
+  .page-navbar{
     position:absolute;
     overflow-y:scroll;
     overflow-x:hidden;
@@ -40,14 +40,17 @@
   }
   }
   }
-  }*/
+  }
   .page-navbar{
 
     .navbar{
-
+      position: fixed;
+      width:100%;
+      top: 40px;
+      z-index: 10;
     }
     .navbar~.container{
-      margin-top: 3px;
+      margin-top: 48px;
     }
     .hot-car{
       position: relative;
@@ -196,41 +199,48 @@
     }
   }
 </style>
-
+<style>
+  .rangeCell .mt-range {
+    width: 100%;
+  }
+  .rangeCell .mint-cell-value {
+    flex: 2.50;
+    position: relative;
+  }
+</style>
 <template>
   <div class="">
-     <!--
-      <footer>
-        <div class="tabbar">
-          <router-link to="">
-            <div class="item-link">
-              <img src="../../assets/images/public/indexFooter_01.png">
-              首页
-            </div>
-          </router-link>
-          <router-link to="/ChooseCarIndex">
-            <div class="item-link on">
-              <img src="../../assets/images/public/indexFooter_06.png">
-              选车
-            </div>
-          </router-link>
-          <router-link to="/">
-            <div class="item-link">
-              <img src="../../assets/images/public/indexFooter_03.png">
-              车生活
-            </div>
-          </router-link>
-          <router-link to="">
-            <div class="item-link">
-              <img src="../../assets/images/public/indexFooter_04.png">
-              我的
-            </div>
-          </router-link>
-        </div>
-      </footer>-->
+    <mt-header fixed title="选车"></mt-header>
+    <footer>
+      <div class="tabbar">
+        <router-link to="">
+          <div class="item-link">
+            <img src="../../assets/images/public/indexFooter_01.png">
+            首页
+          </div>
+        </router-link>
+        <router-link to="/ChooseCarIndex">
+          <div class="item-link">
+            <img src="../../assets/images/public/indexFooter_02.png">
+            选车
+          </div>
+        </router-link>
+        <router-link to="">
+          <div class="item-link on">
+            <img src="../../assets/images/public/indexFooter_07.png">
+            车生活
+          </div>
+        </router-link>
+        <router-link to="">
+          <div class="item-link">
+            <img src="../../assets/images/public/indexFooter_04.png">
+            我的
+          </div>
+        </router-link>
+      </div>
+    </footer>
       <!-- tab-container -->
     <div class="page-navbar">
-      <mt-header  title="选车"></mt-header>
       <div class="navbar">
         <mt-navbar class="page-part" v-model="selected">
           <mt-tab-item id="1">按品牌</mt-tab-item>
@@ -273,20 +283,12 @@
             </div>
             <p>价格</p>
             <div class="rangeCell" >
-             <div class="transparent-button-1 slide-opacity-in-bottom">
-                 <!-- <p>请调整购车预算</p> -->
-                 <div class="budget-price" data-min="40" data-max="61">{{less}}-{{more}}万</div>
-                 <div class="budget-price-choose">
-                     <span class="min-budget">0</span>
-                     <div id="ScrollToChoose" class="Scroll-to-choose">
-                         <div class="price-choose-bar" ref="line"></div>
-                         <div class="price-choose-spacing"  :style="{width:lineWidth+'%',left:less+'%'}"></div>
-                         <div class="price-choose-slider" ref="thumb" :style="{left: position+'%'}"><div></div></div>
-                         <div class="price-choose-slider2" ref="thumb2" :style="{left: position2+'%'}"><div></div></div>
-                     </div>
-                     <span class="max-budget">100</span>
-                 </div>
-             </div>
+              <mt-cell v-for="item in cells2" :title="item.title" :label="'value:' + item.value">
+                <mt-range v-model="item.value" :min="item.min || 0" :max="item.max || 100" :step="item.step || 1" :bar-height="item.barHeight || 1" :disabled="item.disabled">
+                  <div slot="start" v-if="item.start">{{ item.start }}</div>
+                  <div slot="end" v-if="item.end">{{ item.end }}</div>
+                </mt-range>
+              </mt-cell>
             </div>
             <p>级别</p>
             <div class="cell" >
@@ -360,85 +362,104 @@
   </div>
 </template>
 
-<script type="text/babel">
+<script>
   import carnamelist from '../../components/carNameList.vue';
-  import draggable from'../../assets/js/draggable';
-  import '../../assets/css/ad.css';
 
   export default{
     name:'page-navbar',
     components:{carnamelist},
-     data(){
-      return{
-        selected: '1',
-        less:0,
-        more:100,
-        position:0,
-        position2:100,
-        lineWidth:100
-      }
-
-    },
     methods: {
       change:function () {
 
       }
     },
     mounted() {
-      const thumb = this.$refs.thumb;
-      const thumb2 = this.$refs.thumb2;
-      const content = this.$refs.line;
-
-       draggable(thumb, {
-        drag: (event) => {
-          if (this.disabled) return;
-          const contentBox = content.getBoundingClientRect().width;//
-          const contentBoxleft = content.getBoundingClientRect().left;//
-          const deltaX = Math.floor((event.pageX-contentBoxleft)/contentBox*100);
-          this.position = deltaX;
-          this.lineWidth = Math.abs(this.more - this.less);
-
-          if (this.position < 0) {
-            this.position = 0;
-          } else if (this.position > 100) {
-            this.position = 100;
-          }
-
-          if (this.position > this.position2) {
-            this.less = this.position2
-            this.more = this.position
-          } else {
-            this.less = this.position
-            this.more = this.position2
-          }
+      this.cells2 = [ {
+        title: '定义区间',
+        value: this.value5,
+        start: '20',
+        end: '180',
+        step: 20,
+        min: 20,
+        max: 180
+      } ];
+      $('.carblock').click(function () {
+        if ($(this).children('.carkind').hasClass('on')) {
+          $(this).children('.carkind').removeClass('on')
+        }else{
+          $(this).children('.carkind').addClass('on')
         }
-      });
-       draggable(thumb2, {
-        drag: (event) => {
-          if (this.disabled) return;
-          const contentBox = content.getBoundingClientRect().width;//
-          const contentBoxleft = content.getBoundingClientRect().left;//
-          const deltaX = Math.floor((event.pageX-contentBoxleft)/contentBox*100);
-          this.position2 = deltaX;
-          this.lineWidth = Math.abs(this.more - this.less);
-
-          if (this.position2 < 0) {
-            this.position2 = 0;
-          } else if (this.position2 > 100) {
-            this.position2 = 100;
-          }
-
-          if (this.position > this.position2) {
-            this.less = this.position2
-            this.more = this.position
-          } else {
-            this.more = this.position2
-            this.less = this.position
-          }
-        }
-      });
+      })
     },
+    data(){
+      return{
+        selected: '1',
+        test:'primary',
+        value1: 0,
+        value2: 20,
+        value3: 0,
+        value4: 0,
+        value5: 10,
+        value6: 0,
+        value7: 40,
+        value8: 14,
+        cells1: null,
+        cells2: null,
+        cells3: null,
+        /*carkinds:[
+          {line1:[
+            {
+              range:'../../assets/Spray/car/car8-g.png',
+              src1:'../../assets/Spray/car/car8.png',
+              title:'两厢轿车',
+              index:1
+            },{
+              range:'../../assets/Spray/car/car6-g.png',
+              src1:'../../assets/Spray/car/car6.png',
+              title:'三厢轿车',
+              index:2
+            },{
+              range:'../../assets/Spray/car/car2-g.png',
+              src1:'../../assets/Spray/car/car2.png',
+              title:'SVU',
+              index:3
+            }
+          ]},
+          {line2:[
+            {
+              range:'../../assets/Spray/car/car1-g.png',
+              src1:'../../assets/Spray/car/car1.png',
+              title:'MPV',
+              index:1
+            },{
+              range:'../../assets/Spray/car/car7-g.png',
+              src1:'../../assets/Spray/car/car7.png',
+              title:'旅行车',
+              index:2
+            },{
+              range:'../../assets/Spray/car/car4-g.png',
+              src1:'../../assets/Spray/car/car4.png',
+              title:'跑车',
+              index:3
+            }
+          ]},
+          {line3:[
+            {
+              range:'../../assets/Spray/car/car3-g.png',
+              src1:'../../assets/Spray/car/car3.png',
+              title:'皮卡',
+              index:1
+            },{
+              range:'../../assets/Spray/car/car5-g.png',
+              src1:'../../assets/Spray/car/car5.png',
+              title:'不限',
+              index:2
+            }
+          ]}
+        ]*/
+      }
 
+    }
   }
 </script>
 

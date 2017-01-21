@@ -5,6 +5,7 @@
       <div class="mt-range-runway" :style="{ 'border-top-width': barHeight + 'px' }"></div>
       <div class="mt-range-progress" :style="{ width: progress + '%', height: barHeight + 'px' }"></div>
       <div class="mt-range-thumb" ref="thumb" :style="{ left: progress + '%' }"></div>
+      <div class="mt-range-thumb1" ref="thumb1" :style="{ left: progress1 + '%' }"></div>
     </div>
     <slot name="end"></slot>
   </div>
@@ -48,6 +49,18 @@
       }
 
       @descendent thumb {
+        background-color: #fff;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        cursor: move;
+        box-shadow: 0 1px 3px rgba(0,0,0,.4);
+      }
+
+      @descendent thumb1 {
         background-color: #fff;
         position: absolute;
         left: 0;
@@ -139,13 +152,13 @@
             thumbStartTop: position.top
           };
         },
-        drag: (event) => {//拖拽
+        drag: (event) => {
           if (this.disabled) return;
           const contentBox = content.getBoundingClientRect();
           const deltaX = event.pageX - contentBox.left - dragState.thumbStartLeft;
           const stepCount = Math.ceil((this.max - this.min) / this.step);
           const newPosition = (dragState.thumbStartLeft + deltaX) - (dragState.thumbStartLeft + deltaX) % (contentBox.width / stepCount);
-          //新的进度条 = 新的位置 / 条长度
+
           let newProgress = newPosition / contentBox.width;
 
           if (newProgress < 0) {
@@ -153,7 +166,7 @@
           } else if (newProgress > 1) {
             newProgress = 1;
           }
-          //value的值 = 最小值 + 进度条百分比 * (最大值 - 最小值)
+
           this.$emit('input', Math.round(this.min + newProgress * (this.max - this.min)));
         },
         end: () => {
