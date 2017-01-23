@@ -31,8 +31,10 @@ import maintainIndex from './page/maintain/maintain-project.vue'
 import maintainStore from './page/maintain/maintain-store.vue'
 import maintainTime from './page/maintain/maintain-time.vue'
 
-import testAjax from './page/testAjax.vue'
 import footbar from './components/footBar.vue'
+
+import testAjax from './page/testAjax.vue'
+import carKind from './components/carKind.vue'
 
 Vue.use(VueRouter);
 Vue.use(MintUI);
@@ -42,16 +44,16 @@ const router = new VueRouter({
   mode:'history',
   base:__dirname,
   routes:[
-    //{path:'/',component:footbar},
+    {path:'/',component:carKind},
     {path:'/Spray',component:Spray},
 
-    {path:'/',component:CarLife,meta:{show:true}},
+    {path:'/CarLife',component:CarLife,meta:{show:true}},
 
     {path:'/ChooseCarIndex',component:ChooseCarIndex,meta:{show:true}},
     {path:'/ChooseCarSearch',component:ChooseCarSearch},
     {path:'/ChooseCarSearchResult',component:ChooseCarSearchResult},
 
-    {path:'/',component:IllegalIndex},
+    {path:'/IllegalIndex',component:IllegalIndex},
     {path:'/IllegalDetail',component:IllegalDetail},
     {path:'/IllegalPayComfirm',component:IllegalPayComfirm},
 

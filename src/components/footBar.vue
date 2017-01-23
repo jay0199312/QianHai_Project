@@ -13,52 +13,99 @@
     border-top:1px solid #efefef;
     z-index: 100;
     text-align: center;
-  .tabbar{
-    width:100%;
-    display: flex;
-    display: -webkit-flex;
-  a{
-
-    flex:2;
-    -webkit-flex:2;
-    margin: .1rem 0;
-    color: #666;
-  .on{
-    color: #2159c6;
-  }
-  img{
-    display: block;
-    margin: auto;
-    width: .8rem;
-  }
-  }
-  }
+    .tabbar{
+      width:100%;
+      display: flex;
+      display: -webkit-flex;
+      a{
+        flex:2;
+        -webkit-flex:2;
+        margin: .1rem 0;
+        text-decoration: none;
+        color: #666;
+        &.on{
+          color: #2159c6;
+          i{
+            display: block;
+            margin: auto;
+            width: .8rem;
+            height: 0.86rem;
+            &.home{
+              background: url(../assets/images/public/indexFooter_05.png) 0 0 no-repeat;
+              -webkit-background-size: .8rem auto;
+              background-size: .8rem auto;
+             }
+            &.chooseCar{
+              background: url(../assets/images/public/indexFooter_06.png) 0 0 no-repeat;
+              -webkit-background-size: .8rem auto;
+              background-size: .8rem auto;
+            }
+            &.carLife{
+              background: url(../assets/images/public/indexFooter_07.png) 0 0 no-repeat;
+              -webkit-background-size: .8rem auto;
+              background-size: .8rem auto;
+            }
+            &.mine{
+              background: url(../assets/images/public/indexFooter_08.png) 0 0 no-repeat;
+              -webkit-background-size: .8rem auto;
+              background-size: .8rem auto;
+            }
+          }
+        }
+        i{
+            display: block;
+            margin: auto;
+            width: .8rem;
+            height: 0.86rem;
+            &.home{
+              background: url(../assets/images/public/indexFooter_01.png) 0 0 no-repeat;
+              -webkit-background-size: .8rem auto;
+              background-size: .8rem auto;
+             }
+            &.chooseCar{
+              background: url(../assets/images/public/indexFooter_02.png) 0 0 no-repeat;
+              -webkit-background-size: .8rem auto;
+              background-size: .8rem auto;
+            }
+            &.carLife{
+              background: url(../assets/images/public/indexFooter_03.png) 0 0 no-repeat;
+              -webkit-background-size: .8rem auto;
+              background-size: .8rem auto;
+            }
+            &.mine{
+              background: url(../assets/images/public/indexFooter_04.png) 0 0 no-repeat;
+              -webkit-background-size: .8rem auto;
+              background-size: .8rem auto;
+            }
+          }
+      }
+    }
   }
 </style>
 <template>
   <footer>
     <div class="tabbar">
-      <router-link to="">
+      <router-link to="/Spray" active-class="on">
         <div class="item-link">
-          <img src="../assets/images/public/indexFooter_01.png">
+          <i class="home"></i>
           首页
         </div>
       </router-link>
-      <router-link to="/ChooseCarIndex">
+      <router-link to="/ChooseCarIndex" active-class="on">
         <div class="item-link on">
-          <img src="../assets/images/public/indexFooter_06.png">
+          <i class="chooseCar"></i>
           选车
         </div>
       </router-link>
-      <router-link to="/">
+      <router-link to="/CarLife" active-class="on">
         <div class="item-link">
-          <img src="../assets/images/public/indexFooter_03.png">
+          <i class="carLife"></i>
           车生活
         </div>
       </router-link>
-      <router-link to="">
+      <router-link to="/Spray" active-class="on">
         <div class="item-link">
-          <img src="../assets/images/public/indexFooter_04.png">
+          <i class="mine"></i>
           我的
         </div>
       </router-link>
