@@ -85,7 +85,7 @@
 <template>
   <footer>
     <div class="tabbar">
-      <router-link to="/Spray" active-class="on">
+      <router-link to="/homepage" active-class="on">
         <div class="item-link">
           <i class="home"></i>
           首页
@@ -103,7 +103,7 @@
           车生活
         </div>
       </router-link>
-      <router-link to="/Spray" active-class="on">
+      <router-link to="/myPage" active-class="on">
         <div class="item-link">
           <i class="mine"></i>
           我的

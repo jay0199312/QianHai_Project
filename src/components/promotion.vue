@@ -57,19 +57,28 @@
       <label for="">促销</label>
     </div>
     <div class="right">
-      <div class="up">
-        <span>加价购</span>
-        <label for="">加10块就送价值9998充气娃娃</label>
+      <div class="up" v-if="Act1">
+        <span>{{Act1.subject}}</span>
+        <label for="">{{Act1.content}}</label>
       </div>
-      <div class="down">
-        <span>赠&nbsp;送</span>
-        <label for="">下单就送价值998飞机杯</label>
+      <div class="down" v-if="Act1">
+        <span>{{Act2.subject}}</span>
+        <label for="">{{Act2.content}}</label>
       </div>
     </div>
   </div>
 </template>
 <script type="text/babel">
     export default{
-    	name:'buyProcess'
+    	name:'promotion',
+      props:["Act1","Act2"],
+      data(){
+        return {
+          data_split:[{
+            Act1:[],
+            Act2:[]
+          }]
+        }
+      }
     }
 </script>

@@ -152,15 +152,18 @@
       }
     }
   }
-
+  .carNum{
+    padding: .3rem 0;
+    width: 6.9rem;
+    border: 0;
+    margin-top: 0.14rem;
+  }
 </style>
 <template>
   <div>
     <div class="page">
-      <mt-header title="违章处理">
-        <router-link to="/" slot="left">
-          <mt-button icon="back"></mt-button>
-        </router-link>
+      <mt-header title="违章处理" >
+        <mt-button icon="back" slot="left"  @click="$store.commit('back')"></mt-button>
       </mt-header>
       <mt-navbar class="illegal-tab" v-model="selected">
         <mt-tab-item id="1">违章查询</mt-tab-item>
@@ -168,41 +171,50 @@
       </mt-navbar>
       <mt-tab-container v-model="selected">
         <mt-tab-container-item id="1">
-          <mt-field label="车牌号码" placeholder="请输入完整的车牌号码"></mt-field>
-          <mt-field label="车架号码" placeholder="请输入车架号码后六位"></mt-field>
-          <mt-field label="发动机号" placeholder="请输入发动机号后六位"></mt-field>
+          <mt-field label="车牌号码" >
+            <input type="text" placeholder="请输入完整的车牌号码" @focus="focusOn()" ref="number" class="carNum" v-model="plateNumber">
+          </mt-field>
+          <mt-field label="车架号码">
+            <input type="text" placeholder="请输入车架号码后六位" ref="VIN" class="carNum" maxlength="6">
+          </mt-field>
+          <mt-field label="发动机号">
+            <input type="text" placeholder="请输入发动机号后六位" ref="AEN" class="carNum" maxlength="6">
+          </mt-field>
           <div class="check">
-            <mt-button type="primary" size="large">开始查询</mt-button>
+            <mt-button type="primary" size="large" @click.native="checkOut">开始查询</mt-button>
           </div>
         </mt-tab-container-item>
         <mt-tab-container-item id="2">
           <div class="illegalbox">
             <div class="block">
-              <p>15</p>
+              <p v-if="!illegalRecord.ILLEGAL_TIMES">0</p>
+              <p v-if="illegalRecord.ILLEGAL_TIMES">{{illegalRecord.ILLEGAL_TIMES}}</p>
+              <label>违章</label>
+            </div>
+            <div class="block">
+              <p v-if="!illegalRecord.TOTAL_MONEY">0</p>
+              <p v-if="illegalRecord.TOTAL_MONEY">{{illegalRecord.TOTAL_MONEY}}</p>
               <label>罚款</label>
             </div>
             <div class="block">
-              <p>15</p>
-              <label>罚款</label>
-            </div>
-            <div class="block">
-              <p>15</p>
-              <label>罚款</label>
+              <p v-if="!illegalRecord.TOTAL_FEN">0</p>
+              <p v-if="illegalRecord.TOTAL_FEN">{{illegalRecord.TOTAL_FEN}}</p>
+              <label>扣分</label>
             </div>
           </div>
-          <div class="illegalDetail">
-            <ul>
-              <li class="header"><p>2015年11月3日 11时20分</p></li>
+          <div class="illegalDetail" v-if="IR_list">
+            <ul v-for="item of IR_list" @click="goDetail(item)">
+              <li class="header"><p>{{new Date(item.DILLEGAL_DATE).toLocaleString().replace(/:\d{1,2}$/,' ')}}</p></li>
               <li class="contain">
-                <p>大新路-马家龙路口</p>
-                <label>违法停车,交警处罚500块</label>
+                <p>{{item.SAREA}}</p>
+                <label>{{item.SACT}}</label>
               </li>
               <li class="footer">
                 <div class="score">
                   <img src="../../assets/images/illegal/illegal_03.png" alt="">
-                  <span for="">5</span>
+                  <span for="">{{item.FEN}}</span>
                   <img src="../../assets/images/illegal/illegal_05.png" alt="">
-                  <span for="">500</span>
+                  <span for="">{{item.SMONEY}}</span>
                 </div>
                 <label>立即缴费</label>
               </li>
@@ -211,24 +223,70 @@
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
+    <keyboard :showKB="showKB" @keyVal="kbVal" ></keyboard>
   </div>
 </template>
-<script>
+<script type="text/babel">
+  import keyboard from "./../../components/keyboard.vue";
+  import { Toast } from 'mint-ui';
   export default {
     name: 'Illegal',
     components: {
-
+      keyboard
     },
     data() {
       return {
-        selected: '1'
+        selected: '1',
+        showKB:{
+          show:false
+        },
+        plateNumber:"",
+        VIN:"",
+        illegalRecord:[],
+        IR_list:[]
       };
     },
-    mounted(){
-
-    },
     methods: {
-
+      focusOn(){
+        this.$refs.number.blur();
+        this.showKB.show = true;
+      },
+      kbVal(val){
+        this.plateNumber = val;
+      },
+      checkOut(){
+        let illegal_link = this.$store.state.carnt + "/IllegalNewWeb/allIllegal";
+        if(!this.plateNumber){
+          Toast({
+            message: '车牌号不能为空',
+            position: 'bottom'
+          });
+        }else if(!this.$refs.VIN.value){
+          Toast({
+            message: '车架号不能为空',
+            position: 'bottom'
+          });
+        }else{
+          let data = {
+            SCAR_NUMBER:this.plateNumber,
+            PAGE_NO:"1",
+            PAGE_SIZE:"8"
+            /*FRAME_NO:this.$refs.VIN.value*/
+          };
+          console.log(this.plateNumber);
+          this.$http.post(illegal_link,data,{emulateJSON:true})
+            .then(rsp => {
+              this.illegalRecord = rsp.body;
+              this.IR_list = rsp.body.RESULT_DATA;
+              this.selected="2";
+              console.log(rsp.body)
+            }, rsp => {});
+        }
+      },
+      goDetail(item){
+        sessionStorage.setItem("illegalDetail",JSON.stringify(item));
+        this.$router.push("/illegalDetail")
+      }
     }
   };
 </script>

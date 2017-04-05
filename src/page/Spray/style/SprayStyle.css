@@ -20,7 +20,7 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    padding: 1; }
+    padding: 0.25rem; }
     .carMsg .header .left {
       -webkit-box-flex: 1;
       -webkit-flex: 1;

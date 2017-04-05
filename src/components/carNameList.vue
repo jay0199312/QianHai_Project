@@ -1,38 +1,196 @@
 <template>
-  <div class="page-indexlist-wrapper">
+  <div>
+    <p>热门推荐</p>
+    <div class="hot-car">
+      <div class="carblock" v-for="(item,index,key) in alphabet.is_hot" @click="hotPop(index,item.thumb)">
+        <img :src="item.thumb" alt="" class="carlogo">
+        <label for="" class="carname">{{item.name}}</label>
+        {{$store.state.count}}
+      </div>
+    </div>
+    <div class="page-indexlist-wrapper">
+      <mt-index-list>
+        <mt-index-section v-for="(item,key) in alphabet.brand_first" :index="key">
+          <mt-cell v-for="(cell,index) in item" :title="cell.name" @click.native="normalPop(key,index,cell.thumb)">
+            <img slot="icon" :src="cell.thumb" width="24" height="24">
+          </mt-cell>
+        </mt-index-section>
+      </mt-index-list>
+    </div>
+    <mt-popup v-model="popupVisible3" position="right" class="mint-popup-3" :modal="true">
+      <div class="singleCarlist" v-if="this.is_beginning">
+        <div class="header">
+          <img :src="this.brandList.brand.brand_thumb" alt="">
+          <label>{{this.brandList.brand.brand_name}}</label>
+        </div>
+        <p>进口{{this.brandList.brand.brand_name}}</p>
+        <ul>
+          <li v-for="item of this.brandList.brand_list" @click="goDetail(item.id,item.name)">
+            <img :src="item.thumb" alt="">
+            <div class="detail">
+              <p>{{item.name}}</p>
+              <span>¥{{item.price}}万</span>
+            </div>
+          </li>
 
-    <mt-index-list>
-      <mt-index-section v-for="item in alphabet" :index="item.initial">
-        <mt-cell v-for="cell in item.cells" :title="cell">
-          <img slot="icon" src="../assets/logo.png" width="24" height="24">
-        </mt-cell>
-      </mt-index-section>
-    </mt-index-list>
-
+        </ul>
+      </div>
+     <!-- <mt-button @click.native="popupVisible3 = false" size="large" type="primary">关闭 popup</mt-button>-->
+    </mt-popup>
   </div>
 </template>
 <script type="text/babel">
-  const NAMES = ['Aaron', 'Alden', 'Austin', 'Baldwin', 'Braden', 'Carl', 'Chandler', 'Clyde', 'David', 'Edgar', 'Elton', 'Floyd', 'Freeman', 'Gavin', 'Hector', 'Henry', 'Ian', 'Jason', 'Joshua', 'Kane', 'Lambert', 'Matthew', 'Morgan', 'Neville', 'Oliver', 'Oscar', 'Perry', 'Quinn', 'Ramsey', 'Scott', 'Seth', 'Spencer', 'Timothy', 'Todd', 'Trevor', 'Udolf', 'Victor', 'Vincent', 'Walton', 'Willis', 'Xavier', 'Yvonne', 'Zack', 'Zane'];
-
   export default {
     data() {
       return {
-        alphabet: []
+        popupVisible3: false,
+        alphabet:[],
+        brandList:[],
+        is_beginning:false
       };
     },
-
     created() {
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(initial => {
-        let cells = NAMES.filter(name => name[0] === initial);
-      this.alphabet.push({
-        initial,
-        cells
-      });
-    });
+        var brand =this.$store.state.ip + this.$store.state.location + "api/brand";
+      this.$http.get(brand)
+        .then(response => {
+          this.alphabet =response.body;
+          //console.log('cc',this.alphabet)
+        }, response => {
+          // error callback
+        });
+    },
+    methods:{
+      hotPop(index,thumb){
+        this.popupVisible3 = true;
+        const hot_id = this.alphabet.is_hot[index].id;
+        this.carlogo = thumb;
+        this.getPopData(hot_id);
+        /*console.log(hot_id)*/
+      },
+      normalPop(key,index,thumb){
+        this.popupVisible3 = true;
+        const ad = eval("this.alphabet.brand_first."+key);
+        const bid = ad[index].id;
+        this.carlogo = thumb;
+        this.getPopData(bid);
+        /*console.log("key",key);
+        console.log("index",index);
+        console.log(ad[index].id)*/
+      },
+      getPopData(bid){
+        var brandList = this.$store.state.ip + this.$store.state.location + "api/brandList";
+        this.$http.post(brandList,{brand_id:bid},{emulateJSON:true}) //{emulateJSON:true}取数据时候必须传给后台
+          .then(response => {
+            this.brandList = response.body;
+            this.is_beginning = true;
+            //console.log("ad",this.brandList )
+          }, response => {
+            // error callback
+          });
+      },
+      goDetail(id,name){
+        let carobj = {
+          id:id,
+          name:name
+        };
+        this.setRecCar(carobj);
+        sessionStorage.setItem("GoodsDetail_ID",id);
+        this.$router.push("/GoodsDetail")
+      },
+      setRecCar(carObj){
+        let setRecCar = localStorage.getItem("setRecCar");
+        if(setRecCar){
+          let GotObj = JSON.parse(setRecCar);
+          GotObj.unshift(carObj);
+          localStorage.setItem("setRecCar",JSON.stringify(GotObj))
+        }else{
+          let obj = [];
+          obj.unshift(carObj);
+          localStorage.setItem("setRecCar",JSON.stringify(obj))
+        }
+      }
     }
   };
 
 </script>
 <style scoped lang="scss">
-
+  .hot-car{
+    position: relative;
+    display: flex;
+    height: 56px;
+    background: #fff;
+    border-bottom: 1px solid #d4d4d4;
+    padding:5px;
+  .mint-tabbar{
+    background: #fff;
+  }
+  .carblock{
+  img{
+    width:45%;
+    margin:auto;
+    display: block;
+  }
+  label{
+    text-align: center;
+    display: block;
+    font-size: 14px;
+    margin-top:3px;
+  }
+  }
+  }
+  p{
+    display: block;
+    margin: 0px;
+    background: #fafafa;
+    padding: 10px;
+    border-bottom:1px solid #ededed;
+  }
+  .mint-popup-3 {
+    width: 63%;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -5px 0px 5px rgba(0,0,0,0.2);
+  }
+  /*pop*/
+  .singleCarlist{
+    .header {
+      margin:0.15rem;
+      &>img {
+        width: 1.5rem;
+        vertical-align: middle;
+      }
+      &> label {
+        font-size: .5rem;
+      }
+    }
+    &>ul{
+      max-height: 12rem;
+      overflow-y:scroll;
+      li{
+        display:flex;
+        display:flex-box;
+        padding:0.25rem;
+        border-top:1px solid #efefef;
+        img{
+          width:2.0rem;
+          height:1.7rem;
+          display:inline-block;
+        }
+        .detail{
+          flex:1;
+          -webkit-flex:1;
+          padding-left: 0.125rem;
+          p{
+            background: #fff;
+            border-bottom:0;
+            padding-right: 0;
+          }
+          span{
+            color: #e73624;
+            padding-left: 0.25rem;
+          }
+        }
+      }
+    }
+  }
 </style>

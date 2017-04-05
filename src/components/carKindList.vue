@@ -2,9 +2,9 @@
 .my-CarKindlist{
 	background: #fff;
 	.wraper{
-	padding:0.25rem;
-	overflow:hidden;
-	display: block
+    padding:0.25rem;
+    overflow:hidden;
+    display: block;
 	}
 	.car-detail{
 		margin-left: 2.7rem;
@@ -14,8 +14,9 @@
 	    overflow: hidden;
 	    white-space: nowrap;
 	    text-overflow: ellipsis;
+      margin-bottom:0.1rem;
 		}
-		.tag-warm,.tag-primary,.tag-default{
+		.tag-warm,.tag-primary,.tag-normal{
       color: #fff;
       padding:0.125rem;
       display:inline-block;
@@ -28,7 +29,7 @@
 		.tag-primary{
 			background: rgb(254,155,121);
 		}
-		.tag-default{
+		.tag-normal{
 			background: rgb(121,202,255);
 		}
 	}
@@ -55,16 +56,16 @@
 }
 </style>
 <template>
-  <div class="my-CarKindlist">
+  <div class="my-CarKindlist" @click="GoDetail">
   	<div class="wraper">
-			<img src="http://121.40.78.200/pic/shop/article/98769753226215688556746.jpg" alt="" class="car-pic">
+			<img :src="this.src" alt="" class="car-pic">
 			<div class="car-detail">
 				<p class="car-title"><slot name="title"></slot></p>
 				<div class="tag-box">
-					<slot name="label"></slot>
+          <label  v-for="(item,index) of this.labels" :class="tag_class[index]">{{item}}</label>
 				</div>
 				<p class="car-price">
-					¥<span class="big"><slot name="carPrize"></slot></span>万起
+					¥<span class="big"><slot name="carPrice"></slot></span>万起
 				</p>
 			</div>
 		</div>
@@ -73,6 +74,17 @@
 <script type="text/babel">
     export default{
       name:'myCarKindlist',
-      props:['src','title','carPrize','labels']
+      props:['src','link_id','carPrice','labels'],
+      data(){
+        return{
+          tag_class:['tag-warm','tag-primary','tag-normal']
+        }
+      },
+      methods:{
+        GoDetail(){
+          sessionStorage.setItem("GoodsDetail_ID",this.link_id)
+          this.$router.push("/GoodsDetail")
+        }
+      }
     }
 </script>

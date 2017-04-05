@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MintUI from 'mint-ui'
 
+import store from './store/store'
+
 //css
 import 'mint-ui/lib/style.css'
 import 'assets/css/animate.min.css'
@@ -34,7 +36,10 @@ import maintainTime from './page/maintain/maintain-time.vue'
 import footbar from './components/footBar.vue'
 
 import testAjax from './page/testAjax.vue'
-import carKind from './components/carKind.vue'
+// import carKind from './components/carKind.vue'
+
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
 
 Vue.use(VueRouter);
 Vue.use(MintUI);
@@ -44,7 +49,7 @@ const router = new VueRouter({
   mode:'history',
   base:__dirname,
   routes:[
-    {path:'/',component:carKind},
+    //{path:'/',component:carKind},
     {path:'/Spray',component:Spray},
 
     {path:'/CarLife',component:CarLife,meta:{show:true}},
@@ -67,6 +72,7 @@ const router = new VueRouter({
 
 new Vue({
   router,
+  store,
   data(){
     return {
       aaa:'fade1',

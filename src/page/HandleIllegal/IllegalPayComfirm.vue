@@ -89,15 +89,13 @@
   <div>
     <footer>
       <div class="tap-wraper">
-        <label class="sum">需支付:<span>￥688</span></label>
+        <label class="sum">需支付:<span>¥{{parseFloat(detail.SMONEY) + parseFloat(detail.SERV_FEE) }}</span></label>
         <label class="nowpay">立即缴费</label>
       </div>
     </footer>
     <div class="page">
       <mt-header title="违章缴费">
-        <router-link to="/" slot="left">
-          <mt-button icon="back"></mt-button>
-        </router-link>
+        <mt-button icon="back" slot="left" @click.native="$store.commit('back')"></mt-button>
       </mt-header>
       <div class="paymsg">
         <p>车主信息</p>
@@ -109,21 +107,21 @@
       <div class="paymsg">
         <p>可缴费违章</p>
         <div class="illegalPayDtail">
-          <h2>玉泉路-玉泉南海路口</h2>
-          <p>违法停车,交警通告处罚500元</p>
-          <p>2015-11-06 11:50</p>
+          <h2>{{detail.SAREA}}</h2>
+          <p>{{detail.SACT}}</p>
+          <p>{{new Date(detail.DILLEGAL_DATE).toLocaleString().replace(/:\d{1,2}$/,' ')}}</p>
           <div class="illegalscore">
             <div class="block">
               <p>扣分</p>
-              <span>0</span>
+              <span>{{detail.FEN}}</span>
             </div>
             <div class="block">
               <p>罚款</p>
-              <span>500</span>
+              <span>{{detail.SMONEY}}</span>
             </div>
             <div class="block">
               <p>服务费</p>
-              <span>15</span>
+              <span>{{detail.SERV_FEE}}</span>
             </div>
           </div>
         </div>
@@ -135,19 +133,23 @@
     </div>
   </div>
 </template>
-<script>
+<script type="text/babel">
+  import { MessageBox } from 'mint-ui';
   export default {
     name: 'Illegal',
-    components: {
-
-    },
     data() {
       return {
-
+        detail:[]
       };
     },
-    mounted(){
-
+    created(){
+      this.detail = JSON.parse(sessionStorage.getItem("illegalDetail"));
+      console.log(this.detail)
+      if(!this.detail){
+        MessageBox.alert('无相关记录').then(action => {
+          this.$store.commit('back')
+      });
+      }
     },
     methods: {
 

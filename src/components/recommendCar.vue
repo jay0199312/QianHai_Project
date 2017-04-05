@@ -9,61 +9,85 @@
     font-size:16px;
     border-bottom: 1px solid #efefef;
   }
- 
-  .process{
-    padding:0.375rem;
-    display:-webkit-flex;
-    display:flex;
+}
+.price{
+  padding-bottom: 0.25rem;
+  padding-left: 0.25rem;
+  color: #e73624;
+  em{
+    font-size: 24px;
+  }
+}
+.adviceblock-box{
+  /*padding-left: .2rem;*/
+  .block{
     background: #fff;
-    div{
-      flex:1;
-      -webkit-flex:1;
+    padding:.2rem;
+    border-right:1px solid #efefef;
+    box-sizing: border-box;
+    img{
+      width: 100%;
+      height:2.0rem;
     }
-    .split{
-      height:1px;
-      background: #1867d6;
-      margin:0.6rem 0.3rem;
+    .price{
+      padding:0;
+      margin:0;
+      font-size:12px;
+      em{
+        font-size:16px;
+      }
     }
-    .block{
-      p{
-        color: #1867d6;
-        text-align: center;
-      }
-      img{
-        width: 1.3rem;
-      }
+    p{
+
+      overflow : hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      height: .9rem;
+      color: #666;
     }
   }
 }
 </style>
 <template>
   <div class="buyway">
-    <p class="header">购买流程</p>
-    <div class="process">
-      <div class="block">
-        <img src="../assets/images/goodsdetail/goodsdetail_03.png" alt="">
-        <p>线上预约</p>
-      </div>
-      <div class="split"></div>
-      <div class="block">
-        <img src="../assets/images/goodsdetail/goodsdetail_04.png" alt="">
-        <p>线下看书</p>
-      </div>
-      <div class="split"></div>
-      <div class="block">
-        <img src="../assets/images/goodsdetail/goodsdetail_02.png" alt="">
-        <p>支付订单</p>
-      </div>
-      <div class="split"></div>
-      <div class="block">
-        <img src="../assets/images/goodsdetail/goodsdetail_01.png" alt="">
-        <p>办理过户</p>
+    <p class="header">为您推荐</p>
+    <div class="adviceblock swiper-container">
+      <div class="adviceblock-box swiper-wrapper">
+        <div class="block b1 swiper-slide" v-for="item of rcmd_data" @click="refreshlink(item.id)">
+          <img :src="item.thumb" alt="item.name">
+          <p>{{item.name}}</p>
+          <div class="price"><label for=""> ¥<em>{{item.price}}</em>万</label></div>
+        </div>
       </div>
     </div>
+
   </div>
 </template>
 <script type="text/babel">
+    import swipt from "../assets/js/swiper.min"
+    import  "../assets/css/swiper.min.css"
+    import { Lazyload } from 'mint-ui';
     export default{
-    	name:'buyProcess'
+    	name:'recommendCar',
+      props:["rcmd_data"],
+      data(){
+        return {
+
+        }
+      },
+      mounted(){
+        const swiper = new Swiper('.swiper-container',{
+          slidesPerView : 3
+        })
+      },
+      methods:{
+        refreshlink(id){
+          sessionStorage.setItem("GoodsDetail_ID",id)
+          location.reload()
+        }
+      }
+
     }
 </script>

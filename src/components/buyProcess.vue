@@ -9,69 +9,66 @@
     font-size:16px;
     border-bottom: 1px solid #efefef;
   }
-}
-.price{
-  padding-bottom: 0.25rem;
-  padding-left: 0.25rem;
-  color: #e73624;
-  em{
-    font-size: 24px;
-  }
-}
-.adviceblock-box{
-  display:flex;  
-  display:-webkit-flex;
-  padding-left: .2rem;
-  background: #fff;
-  .block{
-    flex:3;
-    -webkit-flex:3;
-    padding:.2rem;
-    padding-left: 0rem;
-    img{
-      width: 100%;
-      height:2.0rem;
+
+  .process{
+    padding:0.375rem;
+    display:-webkit-flex;
+    display:flex;
+    background: #fff;
+    div{
+      flex:1;
+      -webkit-flex:1;
     }
-    .price{
-      padding:0;
-      margin:0;
-      font-size:12px;
-      em{
-        font-size:16px;
+    .split{
+      height:1px;
+      background: #1867d6;
+      margin:0.6rem 0.3rem;
+    }
+    .block{
+      p{
+        color: #1867d6;
+        text-align: center;
       }
-    }
-    p{
-      color: #666
+      img{
+        width: 1.3rem;
+      }
     }
   }
 }
 </style>
 <template>
   <div class="buyway">
-    <p class="header">为您推荐</p>
-    <div class="adviceblock">
-      <div class="adviceblock-box">
-        <div class="block b1">
-          <img src="http://121.40.78.200/pic/shop/photo/qzlogo.jpg" alt="">
-          <p>学弗兰</p>
-          <div class="price"><label for="">￥<em>36.8</em>万</label></div>
-        </div>
-        <div class="block b2">
-          <img src="http://121.40.78.200/pic/shop/photo/qzlogo.jpg" alt="">
-          <p>学弗兰</p>
-          <div class="price"><label for="">￥<em>36.8</em>万</label></div>
-        </div>
-        <div class="block b3">
-          <img src="http://121.40.78.200/pic/shop/photo/qzlogo.jpg" alt="">
-          <p>学弗兰</p>
-          <div class="price"><label for="">￥<em>36.8</em>万</label></div>
-        </div>
+    <p class="header">购买流程</p>
+    <div class="process">
+      <div class="block">
+        <img src="../assets/images/goodsdetail/goodsdetail_03.png" alt="">
+        <p>线上预约</p>
+      </div>
+      <div class="split"></div>
+      <div class="block">
+        <img src="../assets/images/goodsdetail/goodsdetail_04.png" alt="">
+        <p>线下看书</p>
+      </div>
+      <div class="split"></div>
+      <div class="block">
+        <img src="../assets/images/goodsdetail/goodsdetail_02.png" alt="">
+        <p>支付订单</p>
+      </div>
+      <div class="split"></div>
+      <div class="block">
+        <img src="../assets/images/goodsdetail/goodsdetail_01.png" alt="">
+        <p>办理过户</p>
       </div>
     </div>
   </div>
 </template>
 <script type="text/babel">
     export default{
-    	name:'buyProcess'
+    	name:'recommendCar',
+      data(){
+        return{
+
+        }
+      }
     }
 </script>

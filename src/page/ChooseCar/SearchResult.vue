@@ -2,6 +2,7 @@
 .cell{
   background: #fff;
   padding:10px;
+  line-height:1.2rem;
 }
   .nav{
     margin-top:10px;
@@ -11,68 +12,47 @@
     label{
       display: inline-block;
       padding:.4rem .3rem .2rem .3rem;
+      &.on{
+         border-bottom:3px solid #007aff;
+         color: #007aff;
+       }
     }
   }
 </style>
 <template>
   <div class="page-search-result">
     <mt-header title="选车">
-      <router-link to="/" slot="left">
-        <mt-button icon="back"></mt-button>
-      </router-link>
+        <mt-button icon="back" slot="left" @click.native="$store.commit('back')"></mt-button>
     </mt-header>
     <div class="cell">
-      <mt-button plain size="small" type="primary">primary</mt-button>
-      <mt-button plain size="small" type="primary">primary</mt-button>
-      <mt-button plain size="small" type="primary">primary</mt-button>
+      <mt-button plain size="small" type="primary" v-show="choosenCondition.max"><!--价格：-->{{choosenCondition.min}}-{{choosenCondition.max}}万</mt-button>
+      <mt-button plain size="small" type="primary" v-show="choosenCondition.carbody"><!--车款：-->{{choosenCondition.carbody}}</mt-button>
+      <mt-button plain size="small" type="primary" v-show="choosenCondition.drive"><!--驱动：-->{{choosenCondition.drive}}</mt-button>
+      <mt-button plain size="small" type="primary" v-show="choosenCondition.country"><!--出产国家：-->{{choosenCondition.country}}</mt-button>
+      <router-link to="/ChooseCarIndex"><mt-button plain size="small" type="primary" >更多</mt-button></router-link>
     </div>
     <div class="nav">
-      <label @click.prevent="active = 'tab-container1'" >综合</label>
-      <label @click.prevent="active = 'tab-container2'">热门</label>
-      <label @click.prevent="active = 'tab-container3'">价格</label>
+      <label v-for="(item,index) in tabs" @click="changeSelected(index)" :class="{on:item.on}" >{{item.name}}</label>
+
     </div>
     <div class="tebs">
-      <mt-tab-container v-model="active">
-        <mt-tab-container-item id="tab-container1">
-          <myCarKindlist v-for="item in result">
-            <span slot="title">{{item.title}}</span>
-            <span slot="carPrize">{{item.carPrize}}</span>
-            <label class="tag-warm" slot="label" v-for="lab in item.labels">{{lab}}</label>
-          </myCarKindlist>
-        </mt-tab-container-item>
-        <mt-tab-container-item id="tab-container2">
-          <myCarKindlist v-for="item in result1">
-            <span slot="title">{{item.title}}</span>
-            <span slot="carPrize">{{item.carPrize}}</span>
-            <label class="tag-warm" slot="label" v-for="lab in item.labels">{{lab}}</label>
-          </myCarKindlist>
-        </mt-tab-container-item>
-        <mt-tab-container-item id="tab-container3">
-          <myCarKindlist v-for="item in result2">
-            <span slot="title">{{item.title}}</span>
-            <span slot="carPrize">{{item.carPrize}}</span>
-            <label class="tag-warm" slot="label" v-for="lab in item.labels">{{lab}}</label>
-          </myCarKindlist>
-        </mt-tab-container-item>
-      </mt-tab-container>
+      <myCarKindlist
+        v-for="item in result.cars"
+        :src="item.thumb"
+        :labels="item.label.split(',')"
+        :link_id="item.id">
+        <span slot="title">{{item.name}}</span>
+        <span slot="carPrice">{{item.price}}</span>
+      </myCarKindlist>
     </div>
   </div>
 </template>
 
-<script>
+<script type="text/babel">
   import myCarKindlist from '../../components/carKindList.vue'
+  import { MessageBox } from 'mint-ui'
   export default{
     name:'page-search-result',
-    methods: {
-      cleanHistory () {
-        this.historySearch="";
-      }
-    },
-    computed: {
-      filterResult() {
-        return this.defaultResult.filter(value => new RegExp(this.value, 'i').test(value));
-      }
-    },
     components:{
       myCarKindlist
     },
@@ -80,58 +60,52 @@
       return{
         active: 'tab-container1',
         value:'',
-        result:[
-          {
-            src:'http://121.40.78.200/pic/shop/article/98769753226215688556746.jpg',
-            title:'穿越者2016超级SUV穿越者2016超级SUV',
-            carPrize:'35',
-            labels:['耐力好','很强','适合车震','泡女神器']
-          },{
-            labels:['逼格高','很强','适合车震','耐操'],
-            src:'http://121.40.78.200/pic/shop/article/98769753226215688556746.jpg',
-            title:'悍马豪华尊贵版越野型suv',
-            carPrize:'37'
-          },{
-            labels:['逼格高','霸脚','适合车震','耐操'],
-            src:'http://121.40.78.200/pic/shop/article/98769753226215688556746.jpg',
-            title:'玛莎拉蒂奢华尊贵版霸脚suv',
-            carPrize:'37'
-          }
+        tabs:[
+          {on:true,name:"综合"},
+          {on:false,name:"热门"},
+          {on:false,name:"价格"}
         ],
-        result1:[
-          {
-            src:'http://121.40.78.200/pic/shop/article/98769753226215688556746.jpg',
-            title:'穿越者2016超级SUV穿越者2016超级SUV',
-            carPrize:'35',
-            labels:['耐力好','很强','适合车震','泡女神器']
-          },{
-            labels:['逼格高','很强','适合车震','耐操'],
-            src:'http://121.40.78.200/pic/shop/article/98769753226215688556746.jpg',
-            title:'悍马豪华尊贵版越野型suv',
-            carPrize:'37'
-          }
-        ],
-        result2:[
-          {
-            src:'http://121.40.78.200/pic/shop/article/98769753226215688556746.jpg',
-            title:'穿越者2016超级SUV穿越者2016超级SUV',
-            carPrize:'35',
-            labels:['耐力好','很强','适合车震','泡女神器']
-          },{
-            src:'http://121.40.78.200/pic/shop/article/98769753226215688556746.jpg',
-            title:'穿越者2016超级SUV穿越者2016超级SUV',
-            carPrize:'35',
-            labels:['耐力好','很强','适合车震','泡女神器']
-          },{
-            labels:['逼格高','很强','适合车震','耐操'],
-            src:'http://121.40.78.200/pic/shop/article/98769753226215688556746.jpg',
-            title:'悍马豪华尊贵版越野型suv',
-            carPrize:'37'
-          }
-        ]
+        result:[],
+        choosenCondition:[]
       }
-
-
+    },
+    created(){
+      //this.result = this.$store.state.searchResult;
+      const r = sessionStorage.getItem("searchResult");
+      const c = sessionStorage.getItem("choosenCondition");
+      if(r&&c){
+        this.result = JSON.parse(r);
+        this.choosenCondition = JSON.parse(c);
+      }else{
+        MessageBox.alert('搜索结果为空').then(action => {
+          this.$router.push('/ChooseCarIndex')
+        });
+      }
+      //console.log(this.result)
+    },
+    methods:{
+      changeSelected(index){//点击切换筛选条件
+        for(var i=0;i<this.tabs.length;i++){
+          this.tabs[i].on=false;
+        }
+        this.tabs[index].on=true;
+        switch (index) {
+          case 1:
+            this.result.cars.sort(this.sortBy("click"));
+            break;
+          case 2:
+            this.result.cars.sort(this.sortBy("price"));
+            break;
+          default:
+            this.result.cars.sort(this.sortBy("sort"));
+            break;
+        }
+      },
+      sortBy(field) {
+        return function(a,b){
+          return a[field] - b[field];
+        }
+      }
     }
   }
 </script>
